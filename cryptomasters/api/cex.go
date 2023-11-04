@@ -12,6 +12,9 @@ import (
 const apiUrl = "https://cex.io/api/ticker/%s/USD"
 
 func GetRate(currency string) (*datatypes.Rate, error) {
+	if len(currency) == 0 {
+		return nil, fmt.Errorf("currency is empty")
+	}
 	res, err := http.Get(fmt.Sprintf(apiUrl, strings.ToUpper(currency)))
 	if err != nil {
 		return nil, err
